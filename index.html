@@ -9,19 +9,27 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <nav class="nav container">
-            <div class="nav__brand">
-                <h1 class="nav__title">Indian Government Career Navigator</h1>
-            </div>
-            <ul class="nav__menu">
-                <li><a href="#home" class="nav__link active">Home</a></li>
-                <li><a href="#services" class="nav__link">Services Overview</a></li>
-                <li><a href="#timeline" class="nav__link">Career Timeline</a></li>
-                <li><a href="#pathways" class="nav__link">Entry Pathways</a></li>
-                <li><a href="#compare" class="nav__link">Compare</a></li>
-                <li><a href="#calculator" class="nav__link">Calculator</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <nav class="nav">
+                <div class="nav__brand">
+                    <h1 class="nav__title">Indian Government Career Navigator</h1>
+                </div>
+                <button class="nav__toggle" id="navToggle" aria-label="Toggle Navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav__menu">
+                    <li><a href="#home" class="nav__link active">Home</a></li>
+                    <li><a href="#services" class="nav__link">Services Overview</a></li>
+                    <li><a href="#timeline" class="nav__link">Career Timeline</a></li>
+                    <li><a href="#pathways" class="nav__link">Entry Pathways</a></li>
+                    <li><a href="#compare" class="nav__link">Compare</a></li>
+                    <li><a href="#calculator" class="nav__link">Calculator</a></li>
+                </ul>
+                <div class="nav__overlay" id="navOverlay"></div>
+            </nav>
+        </div>
     </header>
 
     <!-- Main Content -->
@@ -396,55 +404,114 @@
             </div>
         </section>
 
-        <!-- Quick Calculator Section -->
+        <!-- Career Path Calculator Section -->
         <section id="calculator" class="section">
             <div class="container">
                 <div class="section__header">
                     <h2>Career Path Calculator</h2>
-                    <p>Get personalized service recommendations based on your profile</p>
+                    <p>Get personalized service recommendations based on your profile and preferences</p>
                 </div>
 
-                <div class="calculator-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="currentAge">Current Age</label>
-                            <input type="number" id="currentAge" class="form-control" min="16" max="35" placeholder="Enter your age">
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <div class="calculator-form-header">
+                            <h3>Enter Your Details</h3>
+                            <p>Complete all fields below for best results</p>
                         </div>
-                        <div class="form-group">
-                            <label for="qualification">Highest Qualification</label>
-                            <select id="qualification" class="form-control">
-                                <option value="">Select qualification...</option>
-                                <option value="12th PCM">12th (PCM)</option>
-                                <option value="Graduation">Graduation</option>
-                                <option value="B.Tech">B.Tech</option>
-                                <option value="MBBS">MBBS</option>
-                                <option value="Masters">Masters</option>
-                            </select>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentAge">Current Age <span class="required">*</span></label>
+                                <input type="number" id="currentAge" class="form-control" min="16" max="35" placeholder="Enter your age" required>
+                                <div class="form-hint">Eligible age range: 16-35 years</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="qualification">Highest Qualification <span class="required">*</span></label>
+                                <select id="qualification" class="form-control" required>
+                                    <option value="">Select qualification...</option>
+                                    <option value="12th PCM">12th (PCM)</option>
+                                    <option value="Graduation">Graduation</option>
+                                    <option value="B.Tech">B.Tech</option>
+                                    <option value="MBBS">MBBS</option>
+                                    <option value="Masters">Masters</option>
+                                </select>
+                                <div class="form-hint">Your highest completed education level</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="preferredCategory">Preferred Category</label>
+                                <select id="preferredCategory" class="form-control">
+                                    <option value="">No preference</option>
+                                    <option value="Civil Services">Civil Services</option>
+                                    <option value="Defense">Defense</option>
+                                    <option value="Technical">Technical</option>
+                                    <option value="Medical">Medical</option>
+                                    <option value="Aviation">Aviation</option>
+                                </select>
+                                <div class="form-hint">Select if you have a preference</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="workLifeBalance">Work-Life Balance Priority</label>
+                                <select id="workLifeBalance" class="form-control">
+                                    <option value="">No preference</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                                <div class="form-hint">Your priority for work-life balance</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="jobSecurity">Job Security Importance</label>
+                                <select id="jobSecurity" class="form-control">
+                                    <option value="">No preference</option>
+                                    <option value="Very High">Very High</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                </select>
+                                <div class="form-hint">How important is job security to you</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="careerLength">Preferred Career Length</label>
+                                <select id="careerLength" class="form-control">
+                                    <option value="">No preference</option>
+                                    <option value="Short">Short (≤ 25 years)</option>
+                                    <option value="Medium">Medium (26-35 years)</option>
+                                    <option value="Long">Long (> 35 years)</option>
+                                </select>
+                                <div class="form-hint">Your preferred career duration</div>
+                            </div>
+                        </div>
+                        
+                        <button id="calculateBtn" class="btn btn--primary">Find My Career Path</button>
+                        <button id="resetCalculatorBtn" class="btn btn--outline">Reset</button>
+                    </div>
+                    
+                    <div class="calculator-info">
+                        <div class="info-card">
+                            <h4>How This Calculator Works</h4>
+                            <p>Our algorithm analyzes your profile against eligibility criteria for various government services and ranks them by match percentage.</p>
+                            <ul>
+                                <li>Age and qualification determine basic eligibility</li>
+                                <li>Preferences affect match scoring</li>
+                                <li>Results show top 5 matching services</li>
+                            </ul>
+                        </div>
+                        <div class="info-card">
+                            <h4>Key Considerations</h4>
+                            <p>When choosing a government service career:</p>
+                            <ul>
+                                <li>Exam difficulty and competition ratio</li>
+                                <li>Long-term career growth opportunities</li>
+                                <li>Location postings and transfers</li>
+                                <li>Work culture and responsibilities</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="preferredCategory">Preferred Category</label>
-                            <select id="preferredCategory" class="form-control">
-                                <option value="">No preference</option>
-                                <option value="Civil Services">Civil Services</option>
-                                <option value="Defense">Defense</option>
-                                <option value="Technical">Technical</option>
-                                <option value="Medical">Medical</option>
-                                <option value="Aviation">Aviation</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="workLifeBalance">Work-Life Balance Priority</label>
-                            <select id="workLifeBalance" class="form-control">
-                                <option value="">No preference</option>
-                                <option value="High">High</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Low">Low</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button id="calculateBtn" class="btn btn--primary">Get Recommendations</button>
                 </div>
 
                 <div id="calculatorResults" class="calculator-results">
@@ -483,6 +550,43 @@
             </div>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Indian Government Career Navigator</h3>
+                    <p class="footer-description">Comprehensive career guidance for all Indian government services</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services Overview</a></li>
+                        <li><a href="#timeline">Career Timeline</a></li>
+                        <li><a href="#pathways">Entry Pathways</a></li>
+                        <li><a href="#compare">Compare</a></li>
+                        <li><a href="#calculator">Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">UPSC Official Website</a></li>
+                        <li><a href="#">Railway Recruitment Board</a></li>
+                        <li><a href="#">National Defence Academy</a></li>
+                        <li><a href="#">Medical Council of India</a></li>
+                        <li><a href="#">ISRO Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 Indian Government Career Navigator. All rights reserved.</p>
+                <p class="disclaimer">This tool provides general guidance only. Please refer to official sources for the most accurate and up-to-date information.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="app.js"></script>
 </body>

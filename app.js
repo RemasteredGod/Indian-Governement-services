@@ -319,11 +319,31 @@ function calculateRecommendations() {
     const qualification = document.getElementById('qualification').value;
     const preferredCategory = document.getElementById('preferredCategory').value;
     const workLifeBalance = document.getElementById('workLifeBalance').value;
+    const jobSecurity = document.getElementById('jobSecurity').value;
+    const careerLength = document.getElementById('careerLength').value;
     
+    // Validate required fields
     if (!age || !qualification) {
-        alert('Please enter your age and qualification');
+        // Show validation error with better UX
+        const calculatorResults = document.getElementById('calculatorResults');
+        calculatorResults.innerHTML = `
+            <div class="alert alert--error">
+                <h4>Required Information Missing</h4>
+                <p>Please enter your age and highest qualification to get personalized recommendations.</p>
+            </div>
+        `;
+        
+        // Highlight missing fields
+        if (!age) document.getElementById('currentAge').classList.add('form-control--error');
+        if (!qualification) document.getElementById('qualification').classList.add('form-control--error');
+        
+        calculatorResults.scrollIntoView({ behavior: 'smooth' });
         return;
     }
+    
+    // Clear any error styles
+    document.getElementById('currentAge').classList.remove('form-control--error');
+    document.getElementById('qualification').classList.remove('form-control--error');
     
     // Filter services based on eligibility
     let eligibleServices = servicesData.filter(service => {
@@ -336,44 +356,91 @@ function calculateRecommendations() {
         return ageEligible && qualificationMatch;
     });
     
-    // Apply preference filters
-    if (preferredCategory) {
-        eligibleServices = eligibleServices.filter(service => service.category === preferredCategory);
-    }
-    
-    if (workLifeBalance) {
-        eligibleServices = eligibleServices.filter(service => service.work_life_balance === workLifeBalance);
-    }
+    // Apply preference filters (but don't completely exclude services that don't match preferences)
+    // We'll just score them lower
+    const preferredServices = [...eligibleServices]; // Keep a copy of all eligible services
     
     // Calculate match scores
     eligibleServices = eligibleServices.map(service => {
         let score = 70; // Base score
+        let matchFactors = [];
         
-        // Age factor
+        // Age factor - optimal age gives higher score
         const [minAge, maxAge] = service.entry_age.split('-').map(a => parseFloat(a));
         const ageRange = maxAge - minAge;
         const agePosition = (age - minAge) / ageRange;
-        if (agePosition < 0.5) score += 10; // Younger candidates have advantage
+        if (agePosition < 0.3) {
+            score += 15; 
+            matchFactors.push("Early career stage");
+        } else if (agePosition < 0.7) {
+            score += 10;
+            matchFactors.push("Mid entry point");
+        } else {
+            score += 5;
+            matchFactors.push("Late entry point");
+        }
         
-        // Qualification match
-        if (service.qualification === qualification) score += 15;
+        // Qualification exact match
+        if (service.qualification === qualification) {
+            score += 15;
+            matchFactors.push("Perfect qualification match");
+        } else if ((qualification === 'Masters' && ['Graduation', 'B.Tech', 'MBBS'].includes(service.qualification)) ||
+                  (qualification === 'B.Tech' && service.qualification === 'Graduation')) {
+            score += 10;
+            matchFactors.push("Qualification exceeds requirements");
+        }
         
         // Category preference
-        if (preferredCategory && service.category === preferredCategory) score += 10;
+        if (preferredCategory && service.category === preferredCategory) {
+            score += 10;
+            matchFactors.push("Matches your category preference");
+        }
         
         // Work-life balance preference
-        if (workLifeBalance && service.work_life_balance === workLifeBalance) score += 10;
+        if (workLifeBalance && service.work_life_balance === workLifeBalance) {
+            score += 10;
+            matchFactors.push("Matches your work-life balance preference");
+        }
         
-        // Job security bonus
-        if (service.job_security === 'Very High') score += 5;
+        // Job security preference
+        if (jobSecurity && service.job_security === jobSecurity) {
+            score += 8;
+            matchFactors.push("Matches your job security preference");
+        }
         
-        return { ...service, matchScore: Math.min(score, 100) };
+        // Career length preference
+        if (careerLength) {
+            if ((careerLength === 'Short' && service.years_to_top <= 25) ||
+                (careerLength === 'Medium' && service.years_to_top > 25 && service.years_to_top <= 35) ||
+                (careerLength === 'Long' && service.years_to_top > 35)) {
+                score += 8;
+                matchFactors.push("Matches your career length preference");
+            }
+        }
+        
+        // Bonus for high job security regardless of preference
+        if (service.job_security === 'Very High') {
+            score += 3;
+        }
+        
+        // Keep top 3 match factors only
+        if (matchFactors.length > 3) {
+            matchFactors = matchFactors.slice(0, 3);
+        }
+        
+        return { 
+            ...service, 
+            matchScore: Math.min(Math.round(score), 100),
+            matchFactors: matchFactors
+        };
     });
     
     // Sort by match score
     eligibleServices.sort((a, b) => b.matchScore - a.matchScore);
     
     // Display results
+    const calculatorResults = document.getElementById('calculatorResults');
+    
     if (eligibleServices.length === 0) {
         calculatorResults.innerHTML = `
             <div class="recommendation-card">
@@ -384,23 +451,33 @@ function calculateRecommendations() {
                     <li>Looking for alternative entry routes</li>
                     <li>Considering state-level services</li>
                 </ul>
+                <div class="recommendation-actions">
+                    <button class="btn btn--outline" onclick="document.getElementById('currentAge').focus()">Modify Search</button>
+                </div>
             </div>
         `;
+        calculatorResults.scrollIntoView({ behavior: 'smooth' });
         return;
     }
     
     const recommendationsHTML = eligibleServices.slice(0, 5).map(service => `
         <div class="recommendation-card">
             <h3>${service.name} <span class="match-score">${service.matchScore}% Match</span></h3>
+            <div class="tags-container">
+                ${service.matchFactors.map(factor => `<span class="recommendation-tag">${factor}</span>`).join('')}
+            </div>
             <div class="recommendation-details">
-                <div><strong>Category:</strong> ${service.category}</div>
-                <div><strong>Entry Age:</strong> ${service.entry_age}</div>
-                <div><strong>Exam:</strong> ${service.exam}</div>
-                <div><strong>Starting Salary:</strong> ${service.starting_salary}</div>
-                <div><strong>Top Position:</strong> ${service.top_position}</div>
-                <div><strong>Years to Top:</strong> ${service.years_to_top} years</div>
-                <div><strong>Job Security:</strong> ${service.job_security}</div>
-                <div><strong>Work-Life Balance:</strong> ${service.work_life_balance}</div>
+                <div><strong>Category</strong> ${service.category}</div>
+                <div><strong>Entry Age</strong> ${service.entry_age}</div>
+                <div><strong>Exam</strong> ${service.exam}</div>
+                <div><strong>Starting Salary</strong> ${service.starting_salary}</div>
+                <div><strong>Top Position</strong> ${service.top_position}</div>
+                <div><strong>Years to Top</strong> ${service.years_to_top} years</div>
+                <div><strong>Job Security</strong> ${service.job_security}</div>
+                <div><strong>Work-Life Balance</strong> ${service.work_life_balance}</div>
+            </div>
+            <div class="recommendation-actions">
+                <button class="btn btn--primary btn--sm" onclick="viewTimeline('${service.name}')">View Career Timeline</button>
             </div>
         </div>
     `).join('');
@@ -409,6 +486,26 @@ function calculateRecommendations() {
         <h3>Recommended Services for You</h3>
         ${recommendationsHTML}
     `;
+    
+    calculatorResults.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Helper function to navigate to timeline with service selected
+function viewTimeline(serviceName) {
+    // Navigate to timeline section
+    document.querySelector('.section.active').classList.remove('active');
+    document.getElementById('timeline').classList.add('active');
+    
+    // Select the service in the dropdown
+    const serviceSelect = document.getElementById('serviceSelect');
+    serviceSelect.value = serviceName;
+    
+    // Trigger the change event to update the timeline
+    const event = new Event('change');
+    serviceSelect.dispatchEvent(event);
+    
+    // Smooth scroll to the section
+    document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' });
 }
 
 // Event Listeners
@@ -427,6 +524,70 @@ serviceCheckboxes.forEach(checkbox => {
 if (calculateBtn) {
     calculateBtn.addEventListener('click', calculateRecommendations);
 }
+
+const resetCalculatorBtn = document.getElementById('resetCalculatorBtn');
+if (resetCalculatorBtn) {
+    resetCalculatorBtn.addEventListener('click', function() {
+        // Reset all form fields
+        document.getElementById('currentAge').value = '';
+        document.getElementById('qualification').value = '';
+        document.getElementById('preferredCategory').value = '';
+        document.getElementById('workLifeBalance').value = '';
+        document.getElementById('jobSecurity').value = '';
+        document.getElementById('careerLength').value = '';
+        
+        // Clear any error styling
+        document.getElementById('currentAge').classList.remove('form-control--error');
+        document.getElementById('qualification').classList.remove('form-control--error');
+        
+        // Clear results
+        document.getElementById('calculatorResults').innerHTML = '';
+    });
+}
+
+// Navbar functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.querySelector('.nav__menu');
+    const navOverlay = document.getElementById('navOverlay');
+    const navLinks = document.querySelectorAll('.nav__link');
+    const header = document.querySelector('.header');
+    
+    // Toggle mobile menu
+    navToggle.addEventListener('click', function() {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        navOverlay.classList.toggle('active');
+        document.body.classList.toggle('nav-open');
+    });
+    
+    // Close mobile menu when clicking overlay
+    navOverlay.addEventListener('click', function() {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        navOverlay.classList.remove('active');
+        document.body.classList.remove('nav-open');
+    });
+    
+    // Close mobile menu when clicking a nav link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+            document.body.classList.remove('nav-open');
+        });
+    });
+    
+    // Add scrolled class to header when scrolling
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+});
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
