@@ -1,0 +1,9 @@
+Service_Type,Normal_Progression,Political_Influence_Scope,Faster_Progression_Routes,Time_Saved_Years,Risk_Factors
+Civil Services,Merit + Seniority,High in postings,Central Deputation,2-5 years,Transfer risks
+Civil Services,Merit + Seniority,Medium in postings,State Deputation,1-3 years,Career uncertainty
+Police Services,Merit + Seniority,High in postings,Special Units,3-7 years,High scrutiny
+Police Services,Merit + Seniority,Medium in postings,CBI/ED posting,2-4 years,Investigation risks
+Defense Services,Strictly Merit,Very Low,Not Applicable,0 years,Not applicable
+Technical Services,Strictly Merit,Very Low,R&D Projects,0-2 years,Project based
+Railway Services,Merit + Seniority,Medium,Board positions,1-3 years,Political changes
+Medical Services,Merit + Seniority,Low,AIIMS/Specialty,1-2 years,Administrative changes

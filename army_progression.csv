@@ -1,0 +1,10 @@
+Rank,Years_of_Service,Promotion_Type,Basic_Pay,Entry_Requirements
+Lieutenant,0-2,On Commission,"₹56,100",NDA/CDS/SSC
+Captain,2-6,Time Scale,"₹61,300",Promotion
+Major,6-13,Time Scale,"₹69,400",Promotion
+Lieutenant Colonel,13-26,Time Scale,"₹1,21,200",Promotion
+Colonel,26+,Time Scale/Selection,"₹1,30,600",Promotion
+Brigadier,25+,Selection,"₹1,39,600",Selection
+Major General,32+,Selection,"₹1,44,200",Selection
+Lieutenant General,36+,Selection,"₹1,82,200",Selection
+General,By Selection,Selection,"₹2,25,000",Selection

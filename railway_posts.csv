@@ -1,0 +1,13 @@
+Group,Post_Name,Level,Basic_Pay,Entry_Qualification,Exam_Conducted_By
+Group D,Track Maintainer,Level 1,"₹18,000",10th pass,RRB
+Group D,Pointsman,Level 1,"₹18,000",10th pass,RRB
+Group D,Assistant (Various),Level 1,"₹18,000",10th pass,RRB
+Group D,Helper,Level 1,"₹18,000",10th pass,RRB
+Group C,Clerk cum Typist,Level 2,"₹19,900",12th pass,RRB
+Group C,Technical Assistant,Level 4,"₹25,500",Diploma,RRB
+Group C,Station Master,Level 6,"₹35,400",Graduation,RRB
+Group C,Ticket Examiner,Level 4,"₹25,500",12th pass,RRB
+Group B,Assistant Station Master,Level 6,"₹35,400",Graduation,RRB
+Group B,Junior Engineer,Level 6,"₹35,400",B.Tech,RRB
+Group B,Senior Section Engineer,Level 7,"₹44,900",B.Tech,RRB
+Group A,Deputy Chief Engineer,Level 12,"₹78,800",B.Tech,UPSC

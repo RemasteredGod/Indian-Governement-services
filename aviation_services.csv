@@ -1,0 +1,9 @@
+Service_Type,Post,Experience_Required,Approximate_Years,Basic_Pay_Range,Entry_Route
+Commercial Pilot,Third Officer,CPL + 250 hrs,0-2,"₹80,000-₹1,50,000",CPL Training
+Commercial Pilot,Second Officer,1500 hrs,2-5,"₹1,50,000-₹3,00,000",Experience
+Commercial Pilot,First Officer,3000 hrs,5-10,"₹3,00,000-₹5,00,000",Experience
+Commercial Pilot,Captain,5000+ hrs,10+,"₹5,00,000-₹15,00,000",Experience
+IAF Officer,Flying Officer,NDA/AFCAT,0-2,"₹56,100",NDA/CDS/AFCAT
+IAF Officer,Squadron Leader,6 years,6-13,"₹69,400",Promotion
+IAF Officer,Group Captain,16 years,16+,"₹1,30,600",Selection
+AAI Executive,Junior Executive (ATC),B.Sc + AAI Exam,0-5,"₹56,100",Graduate + Exam

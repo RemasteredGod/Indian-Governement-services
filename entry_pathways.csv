@@ -1,0 +1,14 @@
+Service_Category,Service_Name,Entry_Exam,Min_Qualification,Age_Limit,Selection_Process
+Civil Services,IAS/IPS/IFS,UPSC CSE,Graduation,21-32,Prelims+Mains+Interview
+Civil Services,Other Central Services,UPSC CSE,Graduation,21-32,Prelims+Mains+Interview
+Defense Services,Army,NDA/CDS/SSC,12th PCM,16.5-19.5,Written+SSB+Medical
+Defense Services,Navy,NDA/CDS/SSC,12th PCM,16.5-19.5,Written+SSB+Medical
+Defense Services,Air Force,NDA/AFCAT/SSC,12th PCM,16.5-19.5,Written+SSB+Medical
+Technical Services,Engineering Services,UPSC ESE/IES,B.Tech,21-30,Written+Interview
+Technical Services,ISRO,ISRO Recruitment,B.Tech/M.Tech,21-30,Written+Interview
+Railway Services,Group A,UPSC ESE,B.Tech,21-30,Written+Interview
+Railway Services,Group B,RRB NTPC,Graduation,18-36,CBT+Interview
+Railway Services,Group C/D,RRB Group D,10th Pass,18-33,CBT+PET+Medical
+Medical Services,Medical Officer,UPSC CMS,MBBS,21-32,Written+Interview
+Aviation Services,Commercial Pilot,CPL Training,12th PCM,18-35,Ground+Flight Training
+Aviation Services,Air Traffic Control,AAI Exam,B.Sc,21-27,Written+Interview

@@ -1,0 +1,37 @@
+Service,Position_Level,Post_Name,Years_to_Reach,Entry_Exam,Basic_Qualification
+IAS,Entry,SDM,0,UPSC CSE,Graduation
+IAS,Mid-Level,DM,10,UPSC CSE,Graduation
+IAS,Senior,Joint Secretary,15,UPSC CSE,Graduation
+IAS,Top,Cabinet Secretary,37,UPSC CSE,Graduation
+IPS,Entry,ASP,0,UPSC CSE,Graduation
+IPS,Mid-Level,SP,10,UPSC CSE,Graduation
+IPS,Senior,DIG,20,UPSC CSE,Graduation
+IPS,Top,DGP,37,UPSC CSE,Graduation
+Indian Army,Entry,Lieutenant,0,NDA/CDS,12th PCM
+Indian Army,Mid-Level,Major,6,NDA/CDS,12th PCM
+Indian Army,Senior,Colonel,26,NDA/CDS,12th PCM
+Indian Army,Top,General,40,NDA/CDS,12th PCM
+Indian Navy,Entry,Sub Lieutenant,0,NDA/CDS,12th PCM
+Indian Navy,Mid-Level,Commander,11,NDA/CDS,12th PCM
+Indian Navy,Senior,Captain,26,NDA/CDS,12th PCM
+Indian Navy,Top,Admiral,40,NDA/CDS,12th PCM
+Indian Air Force,Entry,Flying Officer,0,NDA/AFCAT,12th PCM
+Indian Air Force,Mid-Level,Squadron Leader,6,NDA/AFCAT,12th PCM
+Indian Air Force,Senior,Group Captain,16,NDA/AFCAT,12th PCM
+Indian Air Force,Top,Air Chief Marshal,40,NDA/AFCAT,12th PCM
+Railways (Group A),Entry,Deputy Director,0,UPSC ESE,B.Tech
+Railways (Group A),Mid-Level,Director,10,UPSC ESE,B.Tech
+Railways (Group A),Senior,Executive Director,18,UPSC ESE,B.Tech
+Railways (Group A),Top,Chairman,35,UPSC ESE,B.Tech
+Medical Services,Entry,Medical Officer,0,UPSC CMS,MBBS
+Medical Services,Mid-Level,Chief Medical Officer,15,UPSC CMS,MBBS
+Medical Services,Senior,Director Medical,25,UPSC CMS,MBBS
+Medical Services,Top,Secretary Health,35,UPSC CMS,MBBS
+Engineering (ISRO),Entry,Scientist SC,0,ISRO Exam,B.Tech
+Engineering (ISRO),Mid-Level,Scientist SE,10,ISRO Exam,B.Tech
+Engineering (ISRO),Senior,Scientist SG,20,ISRO Exam,B.Tech
+Engineering (ISRO),Top,Director,35,ISRO Exam,B.Tech
+Commercial Aviation,Entry,Third Officer,0,CPL Training,12th PCM
+Commercial Aviation,Mid-Level,First Officer,7,CPL Training,12th PCM
+Commercial Aviation,Senior,Captain,12,CPL Training,12th PCM
+Commercial Aviation,Top,Chief Pilot,20,CPL Training,12th PCM
